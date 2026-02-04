@@ -11,12 +11,21 @@ jobs:
             echo "The First Job"
             echo "My first Messege" >> messege.txt
 
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v6.0.0
+          with: 
+            name: messege-txt-file
+            path: messege.txt
+
     second_job:
         needs: first_job
         runs-on: ubuntu-latest
         steps:
       
         - name: Second Job file reading
-          run: |
-            echo "The Seond Job"
-            ls -al
+          uses: actions/download-artifact@v6.0.0
+          with: 
+            name: messege-txt-file
+
+        - name: Check the downloaded artifact
+          run: ls -a
