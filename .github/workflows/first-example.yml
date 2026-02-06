@@ -9,23 +9,7 @@ jobs:
         - name: First Job Welcome Messege
           run: |
             echo "The First Job"
-            echo "My first Messege" >> messege.txt
 
-        - name: Upload Artifact
-          uses: actions/upload-artifact@v6.0.0
-          with: 
-            name: messege-txt-file
-            path: messege.txt
+        - name: Dump github context
+          run: echo '${{ toJson(github) }}'
 
-    second_job:
-        needs: first_job
-        runs-on: ubuntu-latest
-        steps:
-      
-        - name: Second Job file reading
-          uses: actions/download-artifact@v6.0.0
-          with: 
-            name: messege-txt-file
-
-        - name: Check the downloaded artifact
-          run: ls -a
